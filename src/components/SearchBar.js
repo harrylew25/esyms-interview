@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { TextField, Typography } from '@mui/material';
+import { TextField, DataGrid } from '@mui/material';
+import SearchResult from './SearchResult';
+import dataFactory from '../utils/dataFactory';
 
 const SearchBar = () => {
   let timer;
   let [searchText, setSearchText] = useState('');
   let [products, setProducts] = useState([]);
 
+  //TODO: sanitizing the input
   const searchBarChangeHandler = (event) => {
     //adding a timeout to prevent recording of every single type
-    //TODO: sanitizing the input
     clearTimeout(timer);
     timer = setTimeout(() => {
       let items = event.target.value;
@@ -18,6 +20,7 @@ const SearchBar = () => {
 
   //TODO: Need to move this to separate file
   const fetchProducts = async () => {
+    //TODO: remember to change this back to the useState variable
     const text = 'multivitamin';
     let url = `https://staging-backend.esyms-api.com/esyms/website/product/front-condition?name=${text}`;
     const INIT = {
@@ -33,8 +36,13 @@ const SearchBar = () => {
         throw Error(`${response.status} ${response.statusText}`);
       }
       const responseObject = await response.json();
-      //TODO: Create a util script for to manage the object creation
-      setProducts(responseObject.results.docs);
+
+      const responseProducts = responseObject.results.docs;
+
+      const productArray = responseProducts.map((item) => {
+        return dataFactory(item);
+      });
+      setProducts(productArray);
     } catch (error) {
       throw Error(`Looks like there was a problem: ${error}`);
     }
@@ -53,16 +61,7 @@ const SearchBar = () => {
         fullWidth
       />
       <button onClick={fetchProducts}>Get Products</button>
-      <div id="searchResult">{`Start here: ${searchText}`}</div>
-      <div>
-        {products.map((product, index) => {
-          return (
-            <div id={product} key={index}>
-              {product}
-            </div>
-          );
-        })}
-      </div>
+      <SearchResult products={products} />
     </>
   );
 };
