@@ -10,7 +10,7 @@ const App = () => {
       <CssBaseline />
       <TopBar />
       <Typography variant="h1" align="center">
-        Esyms Interview Table
+        Esyms Product Search Table
       </Typography>
       <Container maxWidth="xl">
         <SearchBar />

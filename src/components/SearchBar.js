@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, DataGrid } from '@mui/material';
+import { TextField } from '@mui/material';
 import SearchResult from './SearchResult';
 import dataFactory from '../utils/dataFactory';
 
@@ -39,9 +39,14 @@ const SearchBar = () => {
 
       const responseProducts = responseObject.results.docs;
 
-      const productArray = responseProducts.map((item) => {
-        return dataFactory(item);
-      });
+      const productArray = responseProducts
+        .map((item) => {
+          return dataFactory(item);
+        })
+        .sort((productA, productB) => {
+          //display 5 stars rating products on top
+          return productB.rating - productA.rating;
+        });
       setProducts(productArray);
     } catch (error) {
       throw Error(`Looks like there was a problem: ${error}`);

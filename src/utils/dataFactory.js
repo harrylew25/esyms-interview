@@ -1,4 +1,11 @@
 //TODO: Think of a better name
+
+const priceFormatter = (price) => {
+  return new Intl.NumberFormat('ms-MY', {
+    style: 'currency',
+    currency: 'MYR',
+  }).format(price);
+};
 const dataFactory = ({
   productId,
   name,
@@ -12,12 +19,12 @@ const dataFactory = ({
   const product = {
     id: productId,
     name: name.en,
-    price,
-    specialPrice,
+    price: priceFormatter(price),
+    specialPrice: priceFormatter(specialPrice),
     rating,
     imageLink: img[0].src,
     brand,
-    age,
+    ageGroup: age,
   };
 
   return product;
