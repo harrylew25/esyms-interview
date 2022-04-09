@@ -1,14 +1,20 @@
 import React from 'react';
 
-import { CssBaseline, Typography } from '@mui/material';
+import { Container, CssBaseline, Typography } from '@mui/material';
 import TopBar from './components/TopBar';
+import SearchBar from './components/SearchBar';
 
 const App = () => {
   return (
     <>
       <CssBaseline />
       <TopBar />
-      <Typography variant="h1">Hello Esyms Interview Table</Typography>
+      <Typography variant="h1" align="center">
+        Esyms Interview Table
+      </Typography>
+      <Container maxWidth="xl">
+        <SearchBar />
+      </Container>
     </>
   );
 };
