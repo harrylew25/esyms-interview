@@ -1,7 +1,6 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography } from '@mui/material';
 import logo from '../assets/profilePic.jpg';
-// import { red } from '@mui/material/colors';
 
 const TopBar = () => {
   const appBarStyles = {

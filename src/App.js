@@ -5,11 +5,14 @@ import TopBar from './components/TopBar';
 import SearchBar from './components/SearchBar';
 
 const App = () => {
+  const titleStyle = {
+    margin: '20px',
+  };
   return (
     <>
       <CssBaseline />
       <TopBar />
-      <Typography variant="h1" align="center">
+      <Typography variant="h1" align="center" sx={titleStyle}>
         Esyms Product Search Table
       </Typography>
       <Container maxWidth="xl">
