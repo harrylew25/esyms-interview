@@ -1,5 +1,21 @@
-# Getting Started with Create React App
+# Esyms Interview Project
+> This is a simple application where user can enter a product name and the application will display a list of matched product.
 
+## General Information
+ > This application is created using React Library and Material UI.
+ > This application uses the esyms staging service call.
+
+## Installing this project
+- 1. Clone this project
+- 2. npm install
+- 3. npm start
+- 4. The project should run.
+
+## Room for improvements
+- Write unit test for all the functionality.
+- Refactor the Search Result to a smaller component 
+
+## Setup
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
