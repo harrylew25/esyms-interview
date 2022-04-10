@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Table,
   TableBody,
@@ -27,18 +27,27 @@ const SearchResult = ({ products }) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+  useEffect(() => {
+    setPage(0);
+  }, [products]);
   //TODO: Conditional render for the table
+
+  const tableStyle = {
+    marginTop: '20px',
+  };
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} sx={tableStyle}>
       <Table aria-label="Product Table">
         <TableHead>
           <TableRow>
-            <TableCell width="30%">Product</TableCell>
+            <TableCell width="50%">Product</TableCell>
             <TableCell width="10%">Rating</TableCell>
-            <TableCell>Price</TableCell>
-            <TableCell>Brand</TableCell>
+            <TableCell width="10%">Price</TableCell>
+            <TableCell width="10%">Brand</TableCell>
             {/* <TableCell>Image</TableCell> */}
-            <TableCell>Age Group</TableCell>
+            <TableCell width="10%">Age Group</TableCell>
+            <TableCell width="10%">Adminstration Route</TableCell>
           </TableRow>
         </TableHead>
 
@@ -59,21 +68,23 @@ const SearchResult = ({ products }) => {
               imageLink,
               brand,
               ageGroup,
+              adminstrationRoute,
             }) => {
               return (
                 <TableRow id={id} key={id} scope="row">
-                  <TableCell width="30%">{name}</TableCell>
+                  <TableCell width="50%">{name}</TableCell>
                   <TableCell width="10%">
                     <RatingUI rating={rating} />
                   </TableCell>
-                  <TableCell>
+                  <TableCell width="10%">
                     <PriceUI price={price} specialPrice={specialPrice} />
                   </TableCell>
-                  <TableCell>{brand}</TableCell>
+                  <TableCell width="10%">{brand}</TableCell>
                   {/* <TableCell>
                       <ProductImage productName={name} imageLink={imageLink} />
                     </TableCell> */}
-                  <TableCell>{ageGroup}</TableCell>
+                  <TableCell width="10%">{ageGroup}</TableCell>
+                  <TableCell width="10%">{adminstrationRoute}</TableCell>
                 </TableRow>
               );
             }

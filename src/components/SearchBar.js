@@ -18,17 +18,27 @@ const SearchBar = () => {
   const [firstTimeLanding, setFirstTimeLanding] = useState(true);
   const [serviceCallError, setServiceCallError] = useState(false);
 
-  //TODO: sanitizing the input
   const searchBarChangeHandler = (event) => {
     //adding a timeout to prevent recording of every single type
     clearTimeout(timer);
     timer = setTimeout(() => {
-      let inputValue = event.target.value.trim().toLowerCase();
-      //TODO: Put a regex here
-      if (inputValue.trim() !== '') {
+      let inputValue = encodeURI(event.target.value.trim().toLowerCase());
+      if (inputValue !== '') {
         setSearchText(inputValue);
       }
     }, 1000);
+  };
+
+  //keyboard interaction
+  const searchBarOnKeyUp = (event) => {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+      let inputValue = encodeURI(event.target.value.trim().toLowerCase());
+      if (inputValue !== '') {
+        setSearchText(inputValue);
+        fetchProducts();
+      }
+    }
   };
 
   //TODO: Need to move this to separate file
@@ -50,18 +60,18 @@ const SearchBar = () => {
       if (!response.ok) {
         setFirstTimeLanding(false);
         setServiceCallError(true);
+        //Logging the error to server(but here to console)
         console.log(new Error(`${response.status} ${response.statusText}`));
       }
       const responseObject = await response.json();
-
       const responseProducts = responseObject.results.docs;
 
+      //format the raw data into an array of objects and sorted with 5 stars products first
       const productArray = responseProducts
         .map((item) => {
           return dataFactory(item);
         })
         .sort((productA, productB) => {
-          //display 5 stars rating products on top
           return productB.rating - productA.rating;
         });
       setProducts(productArray);
@@ -69,6 +79,7 @@ const SearchBar = () => {
     } catch (error) {
       setFirstTimeLanding(false);
       setServiceCallError(true);
+      //Logging the error to server(but here to console)
       console.log(new Error(`Looks like there was a problem: ${error}`));
     }
   };
@@ -82,6 +93,7 @@ const SearchBar = () => {
         type="search"
         color="primary"
         onChange={searchBarChangeHandler}
+        onKeyUp={searchBarOnKeyUp}
         autoFocus
         fullWidth
         InputProps={{
@@ -99,6 +111,7 @@ const SearchBar = () => {
           Please start typing to search for an item.
         </Typography>
       ) : serviceCallError === true ? (
+        // TODO: Need to move this to a separate location, this one need context
         <Alert severity="error">
           <AlertTitle>Error</AlertTitle>
           There is an error, please try again.

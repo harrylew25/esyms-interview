@@ -8,6 +8,7 @@ const dataFactory = ({
   img,
   brand,
   age,
+  routeOfAdministration,
 }) => {
   const product = {
     id: productId,
@@ -18,6 +19,7 @@ const dataFactory = ({
     imageLink: img[0].src,
     brand,
     ageGroup: age,
+    adminstrationRoute: routeOfAdministration,
   };
 
   return product;
