@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Container, CssBaseline, Typography } from '@mui/material';
 import TopBar from './components/TopBar';
