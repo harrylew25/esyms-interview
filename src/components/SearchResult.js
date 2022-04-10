@@ -11,6 +11,7 @@ import {
   TablePagination,
 } from '@mui/material';
 import RatingUI from '../UI/RatingUI';
+import PriceUI from '../UI/PriceUI';
 // TODO: Move the image section somewhere?
 // import ProductImage from '../UI/ProductImage';
 
@@ -60,12 +61,14 @@ const SearchResult = ({ products }) => {
               ageGroup,
             }) => {
               return (
-                <TableRow id={id} key={id} component="th" scope="row">
+                <TableRow id={id} key={id} scope="row">
                   <TableCell width="30%">{name}</TableCell>
                   <TableCell width="10%">
                     <RatingUI rating={rating} />
                   </TableCell>
-                  <TableCell>{`${price} || ${specialPrice}`}</TableCell>
+                  <TableCell>
+                    <PriceUI price={price} specialPrice={specialPrice} />
+                  </TableCell>
                   <TableCell>{brand}</TableCell>
                   {/* <TableCell>
                       <ProductImage productName={name} imageLink={imageLink} />

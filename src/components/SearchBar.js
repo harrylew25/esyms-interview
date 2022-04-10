@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { TextField } from '@mui/material';
+import { TextField, Typography } from '@mui/material';
 import SearchResult from './SearchResult';
 import dataFactory from '../utils/dataFactory';
 
 const SearchBar = () => {
   let timer;
-  let [searchText, setSearchText] = useState('');
-  let [products, setProducts] = useState([]);
+  const [searchText, setSearchText] = useState('');
+  const [products, setProducts] = useState([]);
+  const [firstTimeLanding, setFirstTimeLanding] = useState(true);
+  const [serviceCallError, setServiceCallError] = useState(false);
 
   //TODO: sanitizing the input
   const searchBarChangeHandler = (event) => {
@@ -33,7 +35,8 @@ const SearchBar = () => {
     try {
       const response = await fetch(url, INIT);
       if (!response.ok) {
-        throw Error(`${response.status} ${response.statusText}`);
+        setServiceCallError(true);
+        console.log(new Error(`${response.status} ${response.statusText}`));
       }
       const responseObject = await response.json();
 
@@ -48,8 +51,10 @@ const SearchBar = () => {
           return productB.rating - productA.rating;
         });
       setProducts(productArray);
+      setFirstTimeLanding(false);
     } catch (error) {
-      throw Error(`Looks like there was a problem: ${error}`);
+      setServiceCallError(true);
+      console.log(new Error(`Looks like there was a problem: ${error}`));
     }
   };
 
@@ -66,7 +71,17 @@ const SearchBar = () => {
         fullWidth
       />
       <button onClick={fetchProducts}>Get Products</button>
-      <SearchResult products={products} />
+      {firstTimeLanding === true ? (
+        <Typography variant="h3">
+          Please start typing to search for an item.
+        </Typography>
+      ) : serviceCallError === true ? (
+        <Typography variant="h3" align="center">
+          There is an error, please try again.
+        </Typography>
+      ) : (
+        <SearchResult products={products} searchText={searchText} />
+      )}
     </>
   );
 };
