@@ -39,37 +39,40 @@ const SearchBar = () => {
 
   //search icon click handler
   const searchIconClickHandler = () => {
-    setLoading(true);
     const searchInput = document.getElementById('searchInput');
-    setSearchText(searchInput.value);
-  };
-
-  const fetchProducts = async () => {
-    if (searchText === '') return;
-    let url = `${GETPRODUCTSURL}${searchText}`;
-    const response = await fetch(url, INIT);
-
-    if (!response.ok) {
-      setLoading(false);
-      console.log(new Error(`${response.status} ${response.statusText}`));
+    const searchInputValue = searchInput.value.toLowerCase().trim();
+    if (searchInputValue !== '') {
+      setLoading(true);
+      setSearchText(searchInputValue);
     }
-
-    const responseData = await response.json();
-    const responseProducts = responseData.results.docs;
-    //format the raw data into an array of objects and sorted with 5 stars products first
-    const productArray = responseProducts
-      .map((item) => {
-        return dataFactory(item);
-      })
-      .sort((productA, productB) => {
-        return productB.rating - productA.rating;
-      });
-    setProducts(productArray);
-    setFirstTimeLanding(false);
-    setLoading(false);
   };
 
   useEffect(() => {
+    const fetchProducts = async () => {
+      if (searchText === '') return;
+      let url = `${GETPRODUCTSURL}${searchText}`;
+      const response = await fetch(url, INIT);
+
+      if (!response.ok) {
+        setLoading(false);
+        console.log(new Error(`${response.status} ${response.statusText}`));
+      }
+
+      const responseData = await response.json();
+      const responseProducts = responseData.results.docs;
+      //format the raw data into an array of objects and sorted with 5 stars products first
+      const productArray = responseProducts
+        .map((item) => {
+          return dataFactory(item);
+        })
+        .sort((productA, productB) => {
+          return productB.rating - productA.rating;
+        });
+      setProducts(productArray);
+      setFirstTimeLanding(false);
+      setLoading(false);
+    };
+
     fetchProducts()
       .then()
       .catch((error) => {
@@ -80,7 +83,7 @@ const SearchBar = () => {
   }, [searchText]);
 
   const renderResult = loading ? (
-    <CircularProgress indeterminate />
+    <CircularProgress />
   ) : (
     <SearchResult products={products} searchText={searchText} />
   );

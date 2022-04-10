@@ -74,7 +74,7 @@ const SearchResult = ({ products }) => {
               Age Group
             </TableCell>
             <TableCell width="10%" sx={mediumScreenStyle}>
-              Adminstration Route
+              Administration Route
             </TableCell>
             <TableCell width="10%" sx={smallScreenStyle}>
               Image
