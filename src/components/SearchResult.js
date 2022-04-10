@@ -58,11 +58,15 @@ const SearchResult = ({ products }) => {
     },
     noResult = {
       marginTop: '20px',
+    },
+    tableHeader = {
+      background: 'rgb(109, 200, 191)',
+      fontWeight: 500,
     };
   const tableHtml = (
     <TableContainer component={Paper} sx={tableStyle}>
       <Table aria-label="Product Table">
-        <TableHead>
+        <TableHead sx={tableHeader}>
           <TableRow>
             <TableCell width="40%">Product</TableCell>
             <TableCell width="10%" sx={hideXSStyle}>

@@ -31,7 +31,6 @@ const SearchBar = () => {
     if (event.keyCode === 13) {
       let inputValue = encodeURI(event.target.value.trim().toLowerCase());
       if (inputValue !== '') {
-        setLoading(true);
         setSearchText(inputValue);
       }
     }
@@ -42,12 +41,12 @@ const SearchBar = () => {
     const searchInput = document.getElementById('searchInput');
     const searchInputValue = searchInput.value.toLowerCase().trim();
     if (searchInputValue !== '') {
-      setLoading(true);
       setSearchText(searchInputValue);
     }
   };
 
   useEffect(() => {
+    setLoading(true);
     const fetchProducts = async () => {
       if (searchText === '') return;
       let url = `${GETPRODUCTSURL}${searchText}`;
