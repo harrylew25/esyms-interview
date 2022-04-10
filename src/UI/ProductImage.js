@@ -5,8 +5,8 @@ const ProductImage = ({ productName, imageLink }) => {
     <img
       src={`https://cdn.esyms.com/${imageLink}`}
       alt={productName}
-      width="240px"
-      height="320px"
+      width="120px"
+      height="160px"
     />
   );
 };

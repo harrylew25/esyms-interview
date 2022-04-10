@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Container, CssBaseline, Typography } from '@mui/material';
 import TopBar from './components/TopBar';
@@ -8,11 +8,12 @@ const App = () => {
   const titleStyle = {
     margin: '20px',
   };
+
   return (
     <>
       <CssBaseline />
       <TopBar />
-      <Typography variant="h1" align="center" sx={titleStyle}>
+      <Typography variant="h3" align="center" sx={titleStyle}>
         Esyms Product Search Table
       </Typography>
       <Container maxWidth="xl">
