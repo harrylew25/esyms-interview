@@ -6,10 +6,10 @@
  > This application uses the esyms staging service call.
 
 ## Installing this project
-- 1. Clone this project
-- 2. npm install
-- 3. npm start
-- 4. The project should run.
+1. Clone this project
+2. npm install
+3. npm start
+4. The project should run.
 
 ## Room for improvements
 - Write unit test for all the functionality.
